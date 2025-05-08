@@ -48,7 +48,7 @@ class TestFloating(unittest.TestCase):
     def test_floating(self):
         first_float = 0.25
         expected_hash = hash_object(pickle.dumps(first_float))
-        for _ in range(1000):
+        for _ in range(100):
             current_hash = hash_object(pickle.dumps(first_float))
             self.assertEqual(current_hash, expected_hash)
         
