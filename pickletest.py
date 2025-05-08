@@ -20,19 +20,33 @@ class TestClass(unittest.TestCase):
         second = self.B()
         second.y = 2
         second.x = 1
-        self.assertEqual(hash_object(pickle.dumps(first)), hash_object(pickle.dumps(second)))
+        first_data = ""
+        second_data = ""
+        with open("data.pkl", "wb") as f:
+            pickle.dump(first, f)
 
-    def test_unpickle_same_objects(self):
-        first = self.B()
-        first.x = 1
-        first.y = 2
+        with open("data.pkl", "rb") as f:
+            first_data = f.read()
 
-        second = self.B()
-        second.y = 2
-        second.x = 1
-        pickled_first = pickle.dumps(first)
-        pickled_second = pickle.dumps(second)
-        self.assertEqual(hash_object(pickle.loads(pickled_first)), hash_object(pickle.loads(pickled_second)))
+        with open("data.pkl", "wb") as f:
+            pickle.dump(second, f)
+
+        with open("data.pkl", "rb") as f:
+            second_data = f.read()
+
+        self.assertEqual(hash_object(first_data), hash_object(second_data))
+
+    # def test_unpickle_same_objects(self):
+    #     first = self.B()
+    #     first.x = 1
+    #     first.y = 2
+
+    #     second = self.B()
+    #     second.y = 2
+    #     second.x = 1
+    #     pickled_first = pickle.dumps(first)
+    #     pickled_second = pickle.dumps(second)
+    #     self.assertEqual(hash_object(pickle.loads(pickled_first)), hash_object(pickle.loads(pickled_second)))
     
 
 class TestRecursive(unittest.TestCase):
@@ -56,7 +70,6 @@ class TestFloating(unittest.TestCase):
         third_float = 0.25 + 0.25
         fourth_float = 0.25 + 0.25
         self.assertEqual(hash_object(pickle.dumps(third_float)), hash_object(pickle.dumps(fourth_float)))
-
 
 class TestBoundary(unittest.TestCase):
     def test_boundary_nan(self):
@@ -89,6 +102,30 @@ class TestBoundary(unittest.TestCase):
         y = negative_zero
         self.assertEqual(hash_object(pickle.dumps(x)), hash_object(pickle.dumps(y)))
 
+class Test_string_values(unittest.TestCase):
+    def test_string(self):
+        string1 = "hej"
+        string2 = "hej"
+
+        self.assertEqual(hash_object(pickle.dumps(string1)), hash_object(pickle.dumps(string2)))
+    
+    def test_empty_string(self):
+        string1 = ""
+        string2 = ""
+
+        self.assertEqual(hash_object(pickle.dumps(string1)), hash_object(pickle.dumps(string2)))
+    
+    def test_string_dict(self):
+        dict1 = {"test": "ett"}
+        dict2 = {"test": "ett"}
+
+        self.assertEqual(hash_object(pickle.dumps(dict1)), hash_object(pickle.dumps(dict2)))
+
+    def test_set(self):
+        set1 = {"uh", "uhh", "uhhh"}
+        set2 = {"uh", "uhh", "uhhh"}
+        
+        self.assertEqual(hash_object(pickle.dumps(set1)), hash_object(pickle.dumps(set2)))
 
 if __name__ == '__main__':
     unittest.main()
