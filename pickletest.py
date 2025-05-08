@@ -47,8 +47,10 @@ class TestRecursive(unittest.TestCase):
 class TestFloating(unittest.TestCase):
     def test_floating(self):
         first_float = 0.25
-        second_float = 0.25
-        self.assertEqual(hash_object(pickle.dumps(first_float)), hash_object(pickle.dumps(second_float)))
+        expected_hash = hash_object(pickle.dumps(first_float))
+        for _ in range(1000):
+            current_hash = hash_object(pickle.dumps(first_float))
+            self.assertEqual(current_hash, expected_hash)
         
     def test_floating_add(self):
         third_float = 0.25 + 0.25
