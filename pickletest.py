@@ -1,87 +1,92 @@
 import pickle
 import math
 import hashlib
-
-class B:
-    def __init__(self):
-        self.x = None
-        self.y = None
+import unittest
 
 def hash_object(obj):
     return hashlib.sha256(pickle.dumps(obj)).hexdigest()
 
+class TestClass(unittest.TestCase):
+    class B:
+        def __init__(self):
+            self.x = None
+            self.y = None
 
-def class_test():
+    def test_pickle_same_objects(self):
+        first = self.B()
+        first.x = 1
+        first.y = 2
 
-    print("testing class")
+        second = self.B()
+        second.y = 2
+        second.x = 1
+        self.assertEqual(hash_object(pickle.dumps(first)), hash_object(pickle.dumps(second)))
 
-    x = B()
-    x.x = 1
-    x.y = 2
+    def test_unpickle_same_objects(self):
+        first = self.B()
+        first.x = 1
+        first.y = 2
 
-    c = B()
-    c.y = 2
-    c.x = 1
-
-    print("x = ", hash_object(pickle.dumps(x)))
-    print("Y = ", hash_object(pickle.dumps(c)))
-
-def recursive_test():
-
-    print("testing recursive list")
-
-    lst1 = []
-    lst1.append(lst1)
-
-    lst2 = []
-    lst2.append(lst2)
-
-    print("lst1 = ", hash_object(pickle.dumps(lst1)))
-    print("lst2 = ", hash_object(pickle.dumps(lst2)))
-
-def boundry_test():
-
-    def testxy():
-        print("x = ", hash_object(pickle.dumps(x)))
-        print("y = ", hash_object(pickle.dumps(y)))
+        second = self.B()
+        second.y = 2
+        second.x = 1
+        pickled_first = pickle.dumps(first)
+        pickled_second = pickle.dumps(second)
+        self.assertEqual(hash_object(pickle.loads(pickled_first)), hash_object(pickle.loads(pickled_second)))
     
-    nan = math.nan
-    inf = math.inf
-    negative_inf = -(float("inf"))
-    zero = 0.0
-    negative_zero = -0.0
 
-    print("testing nan")
-    x = nan
-    y = nan
-    testxy()
-    
-    print("testing inf")
-    x = inf
-    y = inf
-    testxy()
+class TestRecursive(unittest.TestCase):
+    def test_list(self):
+        lst1 = []
+        lst1.append(lst1)
 
-    print("testing negative inf")
-    x = negative_inf
-    y = negative_inf
-    testxy()
+        lst2 = []
+        lst2.append(lst2)
+        self.assertEqual(hash_object(pickle.dumps(lst1)), hash_object(pickle.dumps(lst1)))
 
-    print("testing zero")
-    x = zero
-    y = zero
-    testxy()
+class TestFloating(unittest.TestCase):
+    def test_floating(self):
+        first_float = 0.25
+        second_float = 0.25
+        self.assertEqual(hash_object(pickle.dumps(first_float)), hash_object(pickle.dumps(second_float)))
+        
+    def test_floating_add(self):
+        third_float = 0.25 + 0.25
+        fourth_float = 0.25 + 0.25
+        self.assertEqual(hash_object(pickle.dumps(third_float)), hash_object(pickle.dumps(fourth_float)))
 
-    print("testing negative zero")
-    x = negative_zero
-    y = negative_zero
-    testxy()
 
-if __name__ == "__main__":
-    class_test()
-    print("--------------------------------------")
-    recursive_test()
-    print("--------------------------------------")
-    boundry_test()
-    print("--------------------------------------")
+class TestBoundary(unittest.TestCase):
+    def test_boundary_nan(self):
+        nan = math.nan
+        x = nan
+        y = nan
+        self.assertEqual(hash_object(pickle.dumps(x)), hash_object(pickle.dumps(y)))
 
-    
+    def test_boundary_inf(self):
+        inf = math.inf
+        x = inf
+        y = inf
+        self.assertEqual(hash_object(pickle.dumps(x)), hash_object(pickle.dumps(y)))
+
+    def test_boundary_neg_inf(self):
+        negative_inf = -(float("inf"))
+        x = negative_inf
+        y = negative_inf
+        self.assertEqual(hash_object(pickle.dumps(x)), hash_object(pickle.dumps(y)))
+
+    def test_boundary_zero(self):
+        zero = 0.0
+        x = zero
+        y = zero
+        self.assertEqual(hash_object(pickle.dumps(x)), hash_object(pickle.dumps(y)))
+        
+    def test_boundary_negative_zero(self):
+        negative_zero = -0.0
+        x = negative_zero
+        y = negative_zero
+        self.assertEqual(hash_object(pickle.dumps(x)), hash_object(pickle.dumps(y)))
+
+
+if __name__ == '__main__':
+    unittest.main()
