@@ -30,25 +30,25 @@ jobs:
       - name: Commit new page
         if: always()
         run: |
-         git config user.name github-actions[bot]
-         git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-
-         git fetch origin main
-         git checkout main
-         # Stage and commit if there are changes
-         GIT_STATUS=$(git status --porcelain)
-         echo "$GIT_STATUS"
-
-         if [ "$GIT_STATUS" != "" ]; then
-           git add PickleDataFolder/
-           git commit -m "Automated commit before rebase"
-          fi
-
-          # Rebase on top of the latest origin/main
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          git fetch origin main
+          git checkout main
+          
+          $gitStatus = git status --porcelain
+          Write-Output $gitStatus
+          
+          if ($gitStatus -ne "") {
+              git add PickleDataFolder/
+              git commit -m "Automated commit before rebase"
+          }
+          
           git pull --rebase origin main
-
-          # Push the changes
           git push origin main
+        shell: pwsh
+      
+
 
         
   deploy:
