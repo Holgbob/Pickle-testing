@@ -32,25 +32,42 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
+        
           git fetch origin main
           git checkout main
-          
+        
           $gitStatus = git status --porcelain
           Write-Output $gitStatus
-          
-          if ($gitStatus -ne "") {
-              git add PickleDataFolder/
-              git commit -m "Automated commit before rebase"
-          }
-          
-          git pull --rebase origin main
-          git push origin main
-        shell: pwsh
-      
-
-
         
+          if ($gitStatus -ne "") {
+            git add PickleDataFolder/
+            git commit -m "Automated commit before rebase"
+          }
+        
+          git pull --rebase origin main
+        
+          $maxRetries = 5
+          $retryCount = 0
+          $success = $false
+        
+          while (-not $success -and $retryCount -lt $maxRetries) {
+            try {
+              git push origin main
+              $success = $true
+            } catch {
+              Write-Output "Push failed. Retrying in 5 seconds..."
+              Start-Sleep -Seconds 5
+              git pull --rebase origin main
+              $retryCount++
+            }
+          }
+        
+          if (-not $success) {
+            Write-Error "Push failed after $maxRetries attempts."
+            exit 1
+          }
+        shell: pwsh
+  
   deploy:
     needs: test
     permissions:
