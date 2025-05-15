@@ -30,13 +30,25 @@ jobs:
       - name: Commit new page
         if: always()
         run: |
-          GIT_STATUS=$(git status --porcelain)
-          echo $GIT_STATUS
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add PickleDataFolder/
-          if [ "$GIT_STATUS" != "" ]; then git commit -m "Automated commit"; fi
-          if [ "$GIT_STATUS" != "" ]; then git push --force; fi
+
+          git fetch origin main
+          git checkout main
+          git rebase origin/main
+
+          GIT_STATUS=$(git status --porcelain)
+          echo "$GIT_STATUS"
+
+          if [ "$GIT_STATUS" != "" ]; then
+            git add PickleDataFolder/
+            git commit -m "Automated commit"
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi
+        
+
         
   deploy:
     needs: test
