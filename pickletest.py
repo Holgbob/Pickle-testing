@@ -3,12 +3,15 @@ import math
 import hashlib
 import unittest
 import sys
+import os
 
-os = sys.platform
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+system_os = sys.platform
 info = sys.version_info
 python_version = f"{info[0]}.{info[1]}"
-data_folder = "/PickleDataFolder"
-file_path = f"{data_folder}/{os},{python_version}"
+data_folder = os.path.join(ROOT_DIR, "/PickleDataFolder")
+file_path = f"{data_folder}/{system_os},{python_version}"
 
 def hash_object(obj):
     return hashlib.sha256(pickle.dumps(obj)).hexdigest()
