@@ -13,6 +13,7 @@ jobs:
         python-version: [3.8, 3.9, 3.11]
     steps:
       - name: Checkout code
+        if: always()
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -22,3 +23,18 @@ jobs:
 
       - name: Run script
         run: python pickletest.py
+
+  check:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Run Pickle1.py
+        run: python Pickle1.py

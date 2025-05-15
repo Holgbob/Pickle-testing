@@ -2,130 +2,127 @@ import pickle
 import math
 import hashlib
 import unittest
+import sys
+
+os = sys.platform
+info = sys.version_info
+python_version = f"{info[0]}.{info[1]}"
+data_folder = "/PickleDataFolder"
+file_path = f"{data_folder}/{os},{python_version}"
 
 def hash_object(obj):
     return hashlib.sha256(pickle.dumps(obj)).hexdigest()
 
 class TestClass(unittest.TestCase):
     class B:
-        def __init__(self):
-            self.x = None
-            self.y = None
+        pass
 
     def test_pickle_same_objects(self):
         first = self.B()
         first.x = 1
         first.y = 2
 
-        second = self.B()
-        second.y = 2
-        second.x = 1
-        first_data = ""
-        second_data = ""
-        with open("data.pkl", "wb") as f:
-            pickle.dump(first, f)
+        with open(f"{file_path},test_pickle_same_objects", 'wb') as f:
+            data = hash_object(pickle.dumps(first))
+            f.write(data)
 
-        with open("data.pkl", "rb") as f:
-            first_data = f.read()
+    def test_unpickle_same_objects(self):
+        first = self.B()
+        first.x = 1
+        first.y = 2
 
-        with open("data.pkl", "wb") as f:
-            pickle.dump(second, f)
-
-        with open("data.pkl", "rb") as f:
-            second_data = f.read()
-
-        self.assertEqual(hash_object(first_data), hash_object(second_data))
-
-    # def test_unpickle_same_objects(self):
-    #     first = self.B()
-    #     first.x = 1
-    #     first.y = 2
-
-    #     second = self.B()
-    #     second.y = 2
-    #     second.x = 1
-    #     pickled_first = pickle.dumps(first)
-    #     pickled_second = pickle.dumps(second)
-    #     self.assertEqual(hash_object(pickle.loads(pickled_first)), hash_object(pickle.loads(pickled_second)))
-    
+        with open(f"{file_path},test_unpickle_same_objects", 'wb') as f:
+            data = hash_object(pickle.dumps(first))
+            f.write(data)
 
 class TestRecursive(unittest.TestCase):
     def test_list(self):
-        lst1 = []
-        lst1.append(lst1)
+        lst = []
+        lst.append(lst)
 
-        lst2 = []
-        lst2.append(lst2)
-        self.assertEqual(hash_object(pickle.dumps(lst1)), hash_object(pickle.dumps(lst1)))
+        with open(f"{file_path},test_list", 'wb') as f:
+            data = hash_object(pickle.dumps(lst))
+            f.write(data)
 
 class TestFloating(unittest.TestCase):
     def test_floating(self):
         first_float = 0.25
-        expected_hash = hash_object(pickle.dumps(first_float))
-        for _ in range(100):
-            current_hash = hash_object(pickle.dumps(first_float))
-            self.assertEqual(current_hash, expected_hash)
+
+        with open(f"{file_path},test_floating", 'wb') as f:
+            data = hash_object(pickle.dumps(first_float))
+            f.write(data)
         
     def test_floating_add(self):
         third_float = 0.25 + 0.25
-        fourth_float = 0.25 + 0.25
-        self.assertEqual(hash_object(pickle.dumps(third_float)), hash_object(pickle.dumps(fourth_float)))
+        with open(f"{file_path},test_floating_add", 'wb') as f:
+            data = hash_object(pickle.dumps(third_float))
+            f.write(data)
 
 class TestBoundary(unittest.TestCase):
     def test_boundary_nan(self):
         nan = math.nan
         x = nan
-        y = nan
-        self.assertEqual(hash_object(pickle.dumps(x)), hash_object(pickle.dumps(y)))
+        with open(f"{file_path},test_boundary_nan", 'wb') as f:
+            data = hash_object(pickle.dumps(x))
+            f.write(data)
 
     def test_boundary_inf(self):
         inf = math.inf
-        x = inf
-        y = inf
-        self.assertEqual(hash_object(pickle.dumps(x)), hash_object(pickle.dumps(y)))
+
+        with open(f"{file_path},test_boundary_inf", 'wb') as f:
+            data = hash_object(pickle.dumps(inf))
+            f.write(data)
 
     def test_boundary_neg_inf(self):
         negative_inf = -(float("inf"))
-        x = negative_inf
-        y = negative_inf
-        self.assertEqual(hash_object(pickle.dumps(x)), hash_object(pickle.dumps(y)))
+
+        with open(f"{file_path},test_boundary_neg_inf", 'wb') as f:
+            data = hash_object(pickle.dumps(negative_inf))
+            f.write(data)
 
     def test_boundary_zero(self):
         zero = 0.0
-        x = zero
-        y = zero
-        self.assertEqual(hash_object(pickle.dumps(x)), hash_object(pickle.dumps(y)))
+
+        with open(f"{file_path},test_boundary_zero", 'wb') as f:
+            data = hash_object(pickle.dumps(zero))
+            f.write(data)
         
     def test_boundary_negative_zero(self):
         negative_zero = -0.0
-        x = negative_zero
-        y = negative_zero
-        self.assertEqual(hash_object(pickle.dumps(x)), hash_object(pickle.dumps(y)))
+
+        with open(f"{file_path},test_boundary_negative_zero", 'wb') as f:
+            data = hash_object(pickle.dumps(negative_zero))
+            f.write(data)
 
 class Test_string_values(unittest.TestCase):
     def test_string(self):
-        string1 = "hej"
-        string2 = "hej"
+        string1 = "iaujwfhauyhfga nmcsjlkmnciauHBWYud nbwaidj nmjudiahw8yduahiuwdjanwmoiujdxc hniydwgcdswb"
 
-        self.assertEqual(hash_object(pickle.dumps(string1)), hash_object(pickle.dumps(string2)))
+
+        with open(f"{file_path},test_string", 'wb') as f:
+            data = hash_object(pickle.dumps(string1))
+            f.write(data)
     
     def test_empty_string(self):
         string1 = ""
-        string2 = ""
 
-        self.assertEqual(hash_object(pickle.dumps(string1)), hash_object(pickle.dumps(string2)))
+        with open(f"{file_path},test_empty_string", 'wb') as f:
+            data = hash_object(pickle.dumps(string1))
+            f.write(data)
     
     def test_string_dict(self):
-        dict1 = {"test": "ett"}
-        dict2 = {"test": "ett"}
+        dict1 = {"test1": "ett", "number": 1}
 
-        self.assertEqual(hash_object(pickle.dumps(dict1)), hash_object(pickle.dumps(dict2)))
+        with open(f"{file_path},test_string_dict", 'wb') as f:
+            data = hash_object(pickle.dumps(dict1))
+            f.write(data)
 
     def test_set(self):
         set1 = {"uh", "uhh", "uhhh"}
-        set2 = {"uh", "uhh", "uhhh"}
         
-        self.assertEqual(hash_object(pickle.dumps(set1)), hash_object(pickle.dumps(set2)))
+        with open(f"{file_path},test_set", 'wb') as f:
+            data = hash_object(pickle.dumps(set1))
+            f.write(data)
 
 if __name__ == '__main__':
     unittest.main()
