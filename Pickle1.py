@@ -79,5 +79,5 @@ if __name__ == '__main__':
             data_obj[file.split(',')[2]]
 
             
-
+    print(data_obj)
     unittest.main()

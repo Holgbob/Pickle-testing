@@ -12,7 +12,6 @@ info = sys.version_info
 python_version = f"{info[0]}.{info[1]}"
 data_folder = "./PickleDataFolder"
 file_path = f"{data_folder}/{system_os},{python_version}"
-print(file_path)
 
 def hash_object(obj):
     return hashlib.sha256(pickle.dumps(obj)).hexdigest()
