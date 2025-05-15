@@ -128,4 +128,5 @@ class Test_string_values(unittest.TestCase):
             f.write(data)
 
 if __name__ == '__main__':
+    # unit test start
     unittest.main()
