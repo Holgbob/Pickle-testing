@@ -66,14 +66,14 @@ if __name__ == '__main__':
             if test_name in data_obj:
                 # Lägger till i den key
                 file_path = os.path.join(root, file)
-                with open(file_path, 'rb') as f:
+                with open(file_path, 'r') as f:
                     data_obj[test_name][version_and_os] = f.read()
             else:
                 # Skapa key och lägg till
                 data_obj[test_name] = {}
 
                 file_path = os.path.join(root, file)
-                with open(file_path, 'rb') as f:
+                with open(file_path, 'r') as f:
                     data_obj[test_name][version_and_os] = f.read()
 
             data_obj[file.split(',')[2]]
