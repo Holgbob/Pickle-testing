@@ -25,7 +25,7 @@ class TestClass(unittest.TestCase):
         first.x = 1
         first.y = 2
 
-        with open(f"{file_path},test_pickle_same_objects", 'w') as f:
+        with open(f"test_pickle_self_class,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(first))
             f.write(data)
 
@@ -34,7 +34,7 @@ class TestClass(unittest.TestCase):
         first.x = 1
         first.y = 2
 
-        with open(f"{file_path},test_unpickle_same_objects", 'w') as f:
+        with open(f"test_unpickle_self_class,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(first))
             f.write(data)
 
@@ -43,7 +43,7 @@ class TestRecursive(unittest.TestCase):
         lst = []
         lst.append(lst)
 
-        with open(f"{file_path},test_list", 'w') as f:
+        with open(f"test_list,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(lst))
             f.write(data)
 
@@ -51,13 +51,13 @@ class TestFloating(unittest.TestCase):
     def test_floating(self):
         first_float = 0.25
 
-        with open(f"{file_path},test_floating", 'w') as f:
+        with open(f"test_floating,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(first_float))
             f.write(data)
         
     def test_floating_add(self):
         third_float = 0.25 + 0.25
-        with open(f"{file_path},test_floating_add", 'w') as f:
+        with open(f"test_floating_add,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(third_float))
             f.write(data)
 
@@ -65,35 +65,35 @@ class TestBoundary(unittest.TestCase):
     def test_boundary_nan(self):
         nan = math.nan
         x = nan
-        with open(f"{file_path},test_boundary_nan", 'w') as f:
+        with open(f"test_boundary_nan,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(x))
             f.write(data)
 
     def test_boundary_inf(self):
         inf = math.inf
 
-        with open(f"{file_path},test_boundary_inf", 'w') as f:
+        with open(f"test_boundary_inf,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(inf))
             f.write(data)
 
     def test_boundary_neg_inf(self):
         negative_inf = -(float("inf"))
 
-        with open(f"{file_path},test_boundary_neg_inf", 'w') as f:
+        with open(f"test_boundary_neg_inf,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(negative_inf))
             f.write(data)
 
     def test_boundary_zero(self):
         zero = 0.0
 
-        with open(f"{file_path},test_boundary_zero", 'w') as f:
+        with open(f"test_boundary_zero,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(zero))
             f.write(data)
         
     def test_boundary_negative_zero(self):
         negative_zero = -0.0
 
-        with open(f"{file_path},test_boundary_negative_zero", 'w') as f:
+        with open(f"test_boundary_negative_zero,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(negative_zero))
             f.write(data)
 
@@ -102,28 +102,28 @@ class Test_string_values(unittest.TestCase):
         string1 = "iaujwfhauyhfga nmcsjlkmnciauHBWYud nbwaidj nmjudiahw8yduahiuwdjanwmoiujdxc hniydwgcdswb"
 
 
-        with open(f"{file_path},test_string", 'w') as f:
+        with open(f"test_string,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(string1))
             f.write(data)
     
     def test_empty_string(self):
         string1 = ""
 
-        with open(f"{file_path},test_empty_string", 'w') as f:
+        with open(f"test_empty_string,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(string1))
             f.write(data)
     
     def test_string_dict(self):
         dict1 = {"test1": "ett", "number": 1}
 
-        with open(f"{file_path},test_string_dict", 'w') as f:
+        with open(f"test_string_dict,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(dict1))
             f.write(data)
 
     def test_set(self):
         set1 = {"uh", "uhh", "uhhh"}
         
-        with open(f"{file_path},test_set", 'w') as f:
+        with open(f"test_set,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(set1))
             f.write(data)
 

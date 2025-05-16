@@ -61,20 +61,20 @@ if __name__ == '__main__':
     for (root,dirs,files) in os.walk(file_path):
         for file in files:
             file_prop = file.split(',')
-            test_name = file_prop[2]
-            version_and_os = f"{file_prop[0]},{file_prop[1]}"
+            test_name = file_prop[0]
+            os_and_version = f"{file_prop[1]},{file_prop[2]}"
             if test_name in data_obj:
                 # Lägger till i den key
                 file_path = os.path.join(root, file)
                 with open(file_path, 'r') as f:
-                    data_obj[test_name][version_and_os] = f.read()
+                    data_obj[test_name][os_and_version] = f.read()
             else:
                 # Skapa key och lägg till
                 data_obj[test_name] = {}
 
                 file_path = os.path.join(root, file)
                 with open(file_path, 'r') as f:
-                    data_obj[test_name][version_and_os] = f.read()
+                    data_obj[test_name][os_and_version] = f.read()
 
             data_obj[file.split(',')[2]]
 
