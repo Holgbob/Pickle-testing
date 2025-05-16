@@ -41,6 +41,7 @@ jobs:
           if ($gitStatus -ne "") {
               git add PickleDataFolder/
               git commit -m "Automated commit before push"
+              git pull --rebase origin main
               git push origin main
           } else {
               Write-Output "No changes to commit."
