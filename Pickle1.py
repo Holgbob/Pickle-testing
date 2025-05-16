@@ -9,7 +9,7 @@ current_os = sys.platform
 info = sys.version_info
 current_version = f"{info[0]}.{info[1]}"
 file_path = "./PickleDataFolder"
-python_version = [3.6, 3.7, 3.8, 3.9, 3.11]
+python_version = [3.8, 3.9, 3.11]
 os_arr = ["win32", "linux", "darwin"]
 
 class Test_pickle(unittest.TestCase):
