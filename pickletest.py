@@ -49,16 +49,16 @@ class TestRecursive(unittest.TestCase):
 
 class TestFloating(unittest.TestCase):
     def test_floating(self):
-        first_float = 0.25
+        float1 = 0.25
 
         with open(f"{data_folder}test_floating,{file_path}", 'w') as f:
-            data = hash_object(pickle.dumps(first_float))
+            data = hash_object(pickle.dumps(float1))
             f.write(data)
         
     def test_floating_add(self):
-        third_float = 0.25 + 0.25
+        float2 = 0.25 + 0.25
         with open(f"{data_folder}test_floating_add,{file_path}", 'w') as f:
-            data = hash_object(pickle.dumps(third_float))
+            data = hash_object(pickle.dumps(float2))
             f.write(data)
 
 class TestBoundary(unittest.TestCase):
@@ -107,10 +107,10 @@ class Test_string_values(unittest.TestCase):
             f.write(data)
     
     def test_empty_string(self):
-        string1 = ""
+        string2 = ""
 
         with open(f"{data_folder}test_empty_string,{file_path}", 'w') as f:
-            data = hash_object(pickle.dumps(string1))
+            data = hash_object(pickle.dumps(string2))
             f.write(data)
     
     def test_string_dict(self):
