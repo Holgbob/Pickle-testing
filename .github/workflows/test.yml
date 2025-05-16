@@ -42,7 +42,24 @@ jobs:
               git add PickleDataFolder/
               git commit -m "Automated commit before push"
               git pull --rebase origin main
-              git push origin main
+              # Retry push up to 3 times if rejected due to remote changes
+              $maxRetries = 3
+              $retryCount = 0
+              while ($retryCount -lt $maxRetries) {
+            git push origin main
+            if ($LASTEXITCODE -eq 0) {
+                Write-Output "Push succeeded."
+                break
+            } else {
+                Write-Output "Push failed, retrying after rebase..."
+                git pull --rebase origin main
+                $retryCount++
+            }
+              }
+              if ($retryCount -eq $maxRetries) {
+            Write-Output "Push failed after multiple attempts."
+            exit 1
+              }
           } else {
               Write-Output "No changes to commit."
           }
