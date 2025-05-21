@@ -1,7 +1,5 @@
 import unittest
-import pickle
 import sys
-import hashlib
 import os
 
 
@@ -18,7 +16,7 @@ class Test_pickle(unittest.TestCase):
         x = 0
         for test_case, value in data_obj.items():
             x += 1
-            print(x)
+            print("---------- ", test_case.capitalize(), " ----------")
             # Check all diffrent versions/os against eachother
             for os_and_version, data in value.items():
                 for os_and_version_2, data_2 in value.items():
@@ -29,6 +27,7 @@ class Test_pickle(unittest.TestCase):
 if __name__ == '__main__':
     data_obj = {}
     
+    # Get every test case (By file names)
     for (root,dirs,files) in os.walk(file_path):
         for file in files:
             file_prop = file.split(',')
@@ -50,5 +49,5 @@ if __name__ == '__main__':
 
             data_obj[file.split(',')[0]]
 
-    #print(data_obj)
+    # Run every test
     unittest.main()

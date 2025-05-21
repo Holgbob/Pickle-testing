@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  create_files:
     runs-on: ${{ matrix.os }}
     permissions:
       contents: write
@@ -81,7 +81,7 @@ jobs:
   #       uses: actions/deploy-pages@v4
 
   check:
-    needs: test
+    needs: create_files
     runs-on: ubuntu-latest
     permissions:
       contents: read

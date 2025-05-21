@@ -2,9 +2,6 @@ import pickle
 import math
 import hashlib
 import sys
-import os
-
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 system_os = sys.platform
 info = sys.version_info
@@ -15,19 +12,16 @@ file_path = f"{system_os},{python_version}.txt"
 def hash_object(obj):
     return hashlib.sha256(pickle.dumps(obj)).hexdigest()
 
+# Test function
 def function_object():
         x = 1 + 1
         y = 5 + 5
         x += y
         return x
 
-class Test_class:
+# Test class
+class Class_object:
         pass
-
-def pickle_and_save(obj, test_name):
-    with open(f"{data_folder}{test_name},{file_path}", 'w') as f:
-        data = hash_object(pickle.dumps(obj))
-        f.write(data)
 
 # Create a custom object to test get state pickling
 class CustomObject:
@@ -37,12 +31,24 @@ class CustomObject:
     def __getstate__(self):
         return {'data': self.data}
 
+
+def pickle_and_save(obj, test_name):
+    '''
+    Pickles, hashes and saves the passed objects into
+    a specific folder. Name of the files represents 
+    what test, version and os that was used. 
+    '''
+    with open(f"{data_folder}{test_name},{file_path}", 'w') as f:
+        data = hash_object(pickle.dumps(obj))
+        f.write(data)
+
+
 if __name__ == '__main__':
     
-    ##### Class and function #####
+    ########## Class and function ##########
 
     # Create files for class object
-    test_class = Test_class()
+    test_class = Class_object()
     test_class.x = 1
     test_class.y = 2
     pickle_and_save(test_class, "test_class")
@@ -50,7 +56,7 @@ if __name__ == '__main__':
     # Create files for function object   
     pickle_and_save(function_object, "test_def") 
 
-    ##### Different data-structures #####
+    ########## Different data-structures ##########
 
     # Create files for lists
     lst = []
@@ -58,39 +64,39 @@ if __name__ == '__main__':
     pickle_and_save(lst, "test_list") 
 
     # Create files for dicts
-    test_dict = {"test1": "ett", "number": 1}
+    test_dict = {"Test": "Dict", "Number": 129}
     pickle_and_save(test_dict, "test_dict") 
 
     # Create files for sets
-    test_set = {"uh", "uhh", "uhhh"}
+    test_set = {"Test", "Set", False, 10002}
     pickle_and_save(test_set, "test_set") 
     
     # Create files for tuples
-    test_tuple = (1, 2, 3, 4, 5)
+    test_tuple = (1, 100, 5, 56, 99)
     pickle_and_save(test_tuple, "test_tuple") 
 
-    ##### Extensive numbers #####
+    ########## Extensive numbers ##########
 
     # Create files for floats
-    test_float = 0.151515615651611565142112515212518945182958918259128590859018590287509128795012785901287509187250981802514642356312341424141242414124141241414124141241241512562153156123713712312
+    test_float = 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566
     pickle_and_save(test_float, "test_floating") 
         
     # Create files for complex
-    complex_number = 7 + 2j
+    complex_number = 102 + 56j
     pickle_and_save(complex_number, "test_complex") 
 
-    ##### Bytes #####
+    ########## Bytes ##########
 
     # Create files for bytes
-    test_byte = bytes()
+    test_byte = bytes("Testing bytes. Hopefully no problems!")
     pickle_and_save(test_byte, "test_byte") 
     
     # Create files for byte arrays
-    lst = [0, 1, 2, 3]
+    lst = [0, 63, 129, 513]
     test_byte_array = bytearray(lst)
     pickle_and_save(test_byte_array, "test_bytearray") 
 
-    ##### Boundary #####
+    ########## Boundary ##########
 
     # Create files for nan
     nan = math.nan
@@ -113,17 +119,17 @@ if __name__ == '__main__':
     negative_zero = -0.0
     pickle_and_save(negative_zero, "test_boundary_negative_zero") 
 
-    ##### String values #####
+    ########## String values ##########
     
     # Create files for string
-    test_string = "iaujwfhauyhfga nmcsjlkmnciauHBWYud nbwaidj nmjudiahw8yduahiuwdjanwmoiujdxc hniydwgcdswb"
+    test_string = "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe."
     pickle_and_save(test_string, "test_string") 
 
     # Create files for empty string
     test_empty_string = ""
     pickle_and_save(test_empty_string, "test_empty_string") 
     
-    ##### Booleans #####
+    ########## Booleans ##########
 
     # Create files for none
     none_value = None
@@ -141,8 +147,8 @@ if __name__ == '__main__':
     ellipsis_value = ...
     pickle_and_save(ellipsis_value, "test_ellipsis")
 
-    ##### get_state #####
+    ########## get_state ##########
 
     # Test get state
-    obj = CustomObject([1, 2, 3])
+    obj = CustomObject([500, 99, 10002])
     pickle_and_save(obj, "test_get_state")
