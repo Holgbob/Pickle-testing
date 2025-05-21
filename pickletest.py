@@ -92,7 +92,7 @@ if __name__ == '__main__':
     pickle_and_save(test_byte, "test_byte") 
     
     # Create files for byte arrays
-    lst = [0, 63, 129, 513]
+    lst = [0, 63, 129, 245]
     test_byte_array = bytearray(lst)
     pickle_and_save(test_byte_array, "test_bytearray") 
 
