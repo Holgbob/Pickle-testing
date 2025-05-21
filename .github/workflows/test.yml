@@ -11,7 +11,7 @@ jobs:
       contents: write
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, Fedora-latest, windows-latest, macos-latest]
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
     steps:
       - name: Checkout code
@@ -42,8 +42,8 @@ jobs:
               git add PickleDataFolder/
               git commit -m "Automated commit before push"
               git pull --rebase origin main
-              # Retry push up to 3 times if rejected due to remote changes
-              $maxRetries = 3
+              # Retry push up to 10 times if rejected due to remote changes
+              $maxRetries = 10
               $retryCount = 0
               while ($retryCount -lt $maxRetries) {
             git push origin main
