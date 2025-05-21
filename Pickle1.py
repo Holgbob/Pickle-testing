@@ -21,7 +21,7 @@ class Test_pickle(unittest.TestCase):
             for os_and_version, data in value.items():
                 for os_and_version_2, data_2 in value.items():
                     if os_and_version == os_and_version_2: continue
-                    print(os_and_version)
+                    print("Testing: ", os_and_version.split('.')[0], " against ", os_and_version_2.split('.')[0])
                     self.assertEqual(data, data_2, msg=f"Mismatch in test case '{test_case}' between '{os_and_version}' and '{os_and_version_2}")
 
 if __name__ == '__main__':
