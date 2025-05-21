@@ -19,10 +19,12 @@ class Test_pickle(unittest.TestCase):
             print("---------- ", test_case.capitalize(), " ----------")
             # Check all diffrent versions/os against eachother
             for os_and_version, data in value.items():
+                print("Testing ",  os_and_version, " against every other os and versions")
                 for os_and_version_2, data_2 in value.items():
                     if os_and_version == os_and_version_2: continue
-                    print("Testing: ", os_and_version.split('.')[0], " against ", os_and_version_2.split('.')[0])
+                    #print("Testing: ", os_and_version.split('.')[0], " against ", os_and_version_2.split('.')[0])
                     self.assertEqual(data, data_2, msg=f"Mismatch in test case '{test_case}' between '{os_and_version}' and '{os_and_version_2}")
+                print("Testing ", os_and_version, " is done.")
 
 if __name__ == '__main__':
     data_obj = {}
