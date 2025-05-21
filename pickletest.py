@@ -88,7 +88,7 @@ if __name__ == '__main__':
     ########## Bytes ##########
 
     # Create files for bytes
-    test_byte = bytes("Testing bytes. Hopefully no problems!")
+    test_byte = bytes("Testing bytes. Hopefully no problems!", 'utf-8')
     pickle_and_save(test_byte, "test_byte") 
     
     # Create files for byte arrays
