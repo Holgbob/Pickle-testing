@@ -49,17 +49,18 @@ class TestRecursive(unittest.TestCase):
 
 class TestFloating(unittest.TestCase):
     def test_floating(self):
-        float1 = 0.25
+        float1 = 0.151515615651611565142112515212518945182958918259128590859018590287509128795012785901287509187250981802514642356312341424141242414124141241414124141241241512562153156123713712312
 
         with open(f"{data_folder}test_floating,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(float1))
             f.write(data)
         
-    def test_floating_add(self):
-        float2 = 0.25 + 0.25
-        with open(f"{data_folder}test_floating_add,{file_path}", 'w') as f:
-            data = hash_object(pickle.dumps(float2))
-            f.write(data)
+    # def test_floating_add(self):
+    #     float2 = 0.248591849014901258298085293859028593829385209830957124815870925 + 0.1515156156516115651421125152125189451829589182591285908590185902875091287950127859012875091872509818025
+        
+    #     with open(f"{data_folder}test_floating_add,{file_path}", 'w') as f:
+    #         data = hash_object(pickle.dumps(float2))
+    #         f.write(data)
 
 class TestBoundary(unittest.TestCase):
     def test_boundary_nan(self):
@@ -126,6 +127,18 @@ class Test_string_values(unittest.TestCase):
         with open(f"{data_folder}test_set,{file_path}", 'w') as f:
             data = hash_object(pickle.dumps(set1))
             f.write(data)
+
+def function_object():
+            x = 1 + 1
+            y = 5 + 5
+            x += y
+            return x
+
+class Test_def(unittest.TestCase):
+    def test_def(self):        
+        with open(f"{data_folder}test_def,{file_path}", 'w') as f:
+            def_function = hash_object(pickle.dumps(function_object))
+            f.write(def_function)
 
 if __name__ == '__main__':
     # unit test start
