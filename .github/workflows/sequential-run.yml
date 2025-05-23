@@ -1,0 +1,26 @@
+name: Sequential OS and Python Jobs
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  ubuntu_3_8:
+    uses: ./.github/workflows/reusable-run-script.yml
+    with:
+      os: ubuntu-latest
+      python-version: '3.8'
+
+  windows_3_9:
+    needs: ubuntu_3_8
+    uses: ./.github/workflows/reusable-run-script.yml
+    with:
+      os: windows-latest
+      python-version: '3.9'
+
+  macos_3_10:
+    needs: windows_3_9
+    uses: ./.github/workflows/reusable-run-script.yml
+    with:
+      os: macos-latest
+      python-version: '3.10'
