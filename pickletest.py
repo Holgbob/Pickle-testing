@@ -2,6 +2,7 @@ import pickle
 import math
 import hashlib
 import sys
+import random
 
 system_os = sys.platform
 info = sys.version_info
@@ -14,14 +15,14 @@ def hash_object(obj):
 
 # Test function
 def function_object():
-        x = 1 + 1
-        y = 5 + 5
-        x += y
-        return x
+    x = 1 + 1
+    y = 5 + 5
+    x += y
+    return x
 
 # Test class
 class Class_object:
-        pass
+    pass
 
 # Create a custom object to test get state pickling
 class CustomObject:
@@ -31,6 +32,18 @@ class CustomObject:
     def __getstate__(self):
         return {'data': self.data}
 
+# Returns the given list as a max_depth recursive list
+def recursive_lst_helper(lst, max_depth=20, depth=1):
+    if depth >= max_depth:
+        return lst
+    return [recursive_lst_helper(lst, depth=depth+1, max_depth=max_depth)]
+
+# returns a string n long
+def string_helper(n):
+    string = ""
+    for _ in n:
+        string += chr(random.randint(32,126))
+    return string
 
 def pickle_and_save(obj, test_name):
     '''
@@ -38,14 +51,16 @@ def pickle_and_save(obj, test_name):
     a specific folder. Name of the files represents 
     what test, version and os that was used. 
     '''
-    with open(f"{data_folder}{test_name},{file_path}", 'w') as f:
+    with open(f"{data_folder}data", 'a') as f:
         data = hash_object(pickle.dumps(obj))
+        data += f",{test_name},{file_path}\n"
         f.write(data)
 
 
 if __name__ == '__main__':
     
     ########## Class and function ##########
+    random.seed(10)
 
     # Create files for class object
     test_class = Class_object()
@@ -60,7 +75,7 @@ if __name__ == '__main__':
 
     # Create files for lists
     lst = []
-    lst.append(lst)
+    lst = recursive_lst_helper(lst, 30)
     pickle_and_save(lst, "test_list") 
 
     # Create files for dicts
@@ -84,6 +99,10 @@ if __name__ == '__main__':
     # Create files for complex
     complex_number = 102 + 56j
     pickle_and_save(complex_number, "test_complex") 
+
+    # Test long (Over 2**63 to guarantee it's more than a simple integeer, i.e independent on system architecture 32 and 64)
+    test_long = 2**70
+    pickle_and_save(test_long, "test_long")
 
     ########## Bytes ##########
 
@@ -112,7 +131,7 @@ if __name__ == '__main__':
     pickle_and_save(negative_inf, "test_boundary_neg_inf") 
 
     # Create files for zero
-    zero = 0.0
+    zero = 0
     pickle_and_save(zero, "test_boundary_zero") 
         
     # Create files for negative zero
@@ -122,7 +141,7 @@ if __name__ == '__main__':
     ########## String values ##########
     
     # Create files for string
-    test_string = "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe."
+    test_string = string_helper(500)
     pickle_and_save(test_string, "test_string") 
 
     # Create files for empty string
@@ -152,3 +171,13 @@ if __name__ == '__main__':
     # Test get state
     obj = CustomObject([500, 99, 10002])
     pickle_and_save(obj, "test_get_state")
+
+    # Test big number
+    big_number = 2**64
+    pickle_and_save(big_number, "test_big_number")
+
+    ########## Unicode ##########
+
+    # Test unicode
+    unicode_char = chr(0x10FCFF)
+    pickle_and_save(unicode_char, "test_unicode")
