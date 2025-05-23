@@ -1,0 +1,25 @@
+name: Cross-Platform Test
+
+on:
+  push:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Pull latest changes
+        run: git pull --rebase origin main
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Run Pickle1.py
+        if: always()
+        run: python Pickle1.py
