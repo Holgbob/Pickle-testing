@@ -41,7 +41,7 @@ def recursive_lst_helper(lst, max_depth=20, depth=1):
 # returns a string n long
 def string_helper(n):
     string = ""
-    for _ in n:
+    for _ in range(0, n):
         string += chr(random.randint(32,126))
     return string
 
