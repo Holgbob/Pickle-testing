@@ -43,7 +43,7 @@ jobs:
               git commit -m "Automated commit before push"
               git pull --rebase origin main
               # Retry push up to 10 times if rejected due to remote changes
-              $maxRetries = 10
+              $maxRetries = 20
               $retryCount = 0
               while ($retryCount -lt $maxRetries) {
             git push origin main
