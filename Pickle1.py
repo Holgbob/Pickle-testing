@@ -28,7 +28,7 @@ class Test_pickle(unittest.TestCase):
 if __name__ == '__main__':
     data_obj = {}
 
-    with open("./PickleDataFolder/data", 'r') as f:
+    with open("./PickleDataFolder/", 'r') as f:
         for data in f:
             data = data.split(',')
             test_name = data[1] + data[4]

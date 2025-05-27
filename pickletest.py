@@ -52,7 +52,7 @@ def pickle_and_save(obj, test_name):
     a specific folder. Name of the files represents 
     what test, version and os that was used. 
     '''
-    with open(f"{data_folder}data", 'a') as f:
+    with open(f"{data_folder}", 'a') as f:
         data = hash_object(pickle.dumps(obj, protocol=current_protocol))
         data += f",{test_name},{file_path},{current_protocol}\n"
         f.write(data)
