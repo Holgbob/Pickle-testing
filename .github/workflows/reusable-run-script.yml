@@ -17,6 +17,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Pull files
+        shell: pwsh
+        run: |
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git pull --rebase origin main
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -31,8 +40,6 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git pull --rebase origin main
 
           git add PickleDataFolder/
           git commit -m "Automated commit before push" || echo "No changes to commit"
