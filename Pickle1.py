@@ -31,8 +31,8 @@ if __name__ == '__main__':
     with open("./PickleDataFolder/data", 'r') as f:
         for data in f:
             data = data.split(',')
-            test_name = data[1]
-            os_and_version = f"{data[2]},{data[3]}"
+            test_name = data[1] + data[4]
+            os_and_version = f"{data[2]},{data[3]},{data[4]}"
             if test_name in data_obj:
                 # Lägger till i den key
                 data_obj[test_name][os_and_version] = data[0]
