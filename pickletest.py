@@ -7,7 +7,7 @@ import random
 system_os = sys.platform
 info = sys.version_info
 python_version = f"{info[0]}.{info[1]}"
-data_folder = "./PickleDataFolder/"
+data_folder = "./PickleDataFolder"
 file_path = f"{system_os},{python_version}.txt"
 current_protocol = 0
 
@@ -52,7 +52,7 @@ def pickle_and_save(obj, test_name):
     a specific folder. Name of the files represents 
     what test, version and os that was used. 
     '''
-    with open(f"{data_folder}", 'a') as f:
+    with open(f"{data_folder}/data", 'a') as f:
         data = hash_object(pickle.dumps(obj, protocol=current_protocol))
         data += f",{test_name},{file_path},{current_protocol}\n"
         f.write(data)

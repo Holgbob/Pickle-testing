@@ -29,34 +29,33 @@ jobs:
         shell: pwsh
         run: |
 
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-            # Clean untracked files that might conflict
-            git clean -fd
+          # Clean untracked files that might conflict
+          git clean -fd
 
-            git pull --rebase origin main
+          git pull --rebase origin main
 
-            git add PickleDataFolder/
-            git commit -m "Automated commit before push" || echo "No changes to commit"
+          git add PickleDataFolder/
+          git commit -m "Automated commit before push" || echo "No changes to commit"
 
-            # Retry push up to 5 times
-            $maxRetries = 5
-            $retryCount = 0
-            while ($retryCount -lt $maxRetries) {
-            git push origin main
-            if ($LASTEXITCODE -eq 0) {
-            Write-Output "Push succeeded."
-            break
-            } else {
-                Write-Output "Push failed, retrying after rebase..."
-                git pull --rebase origin main
-                $retryCount++
-            }
-            }
+          # Retry push up to 5 times
+          $maxRetries = 5
+          $retryCount = 0
+          while ($retryCount -lt $maxRetries) {
+          git push origin main
+          if ($LASTEXITCODE -eq 0) {
+          Write-Output "Push succeeded."
+          break
+          } else {
+              Write-Output "Push failed, retrying after rebase..."
+              git pull --rebase origin main
+              $retryCount++
+          }
+          }
 
-            if ($retryCount -eq $maxRetries) {
-                Write-Output "Push failed after multiple attempts."
-                exit 1
-            }
-
+          if ($retryCount -eq $maxRetries) {
+              Write-Output "Push failed after multiple attempts."
+              exit 1
+          }
