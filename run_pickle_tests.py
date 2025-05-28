@@ -1,13 +1,12 @@
 def get_test_data():
-    ''' 
-    Get's all data from different os, python versions
+    """
+    Gets all data from different os, python versions
     and protocols and save in data_obj variable.
-    '''
+    """
 
     data_obj = {}
     # Get data from file.
     with open("./PickleDataFolder/data", 'r') as f:
-        # Loop trough every line (one line = one data).
         for data in f:
             # Get different information by split.
             data = data.split(',')
@@ -43,7 +42,7 @@ def test_pickle(data_obj):
                 for os_and_version_2, data_2 in protocol_data.items():
                     if os_and_version == os_and_version_2: continue # Don't check same hash
                     # If not the same, add it to failed_tests
-                    if not data == data_2:
+                    if data != data_2:
                             if test_case in failed_tests:
                                 if not "Os or Version" in failed_tests[test_case]:
                                     failed_tests[test_case].append("Os or Version")
@@ -53,16 +52,18 @@ def test_pickle(data_obj):
                 # Check protocols against eachother
                 for protocol_2, protocol_data_2 in value.items():
                     for os_and_version_2, data_2 in protocol_data_2.items():
-                        if os_and_version != os_and_version_2 or protocol == protocol_2: continue # Only check same operating system but not same protocol
+                        # Only check same operating system but not same protocol
+                        if not os_and_version != os_and_version_2 or protocol == protocol_2: continue
                         # If not the same, add it to failed_tests
-                        if not data == data_2:
+                        if data != data_2:
                             if test_case in failed_tests:
                                 if not "protocol" in failed_tests[test_case]:
                                     failed_tests[test_case].append("protocol")
                             else:
                                 failed_tests[test_case] = ["protocol"]
 
-    # Print out what test that failed and why (Only 'operatingsystem/version' and 'protocol' are possible errors)
+    # Print out what test that failed 
+    # and why (Only 'operatingsystem/version' and 'protocol' are possible errors)
     for test, errors in failed_tests.items():
         print(f"Test: {test}: Failed with:")
         for error in errors:
