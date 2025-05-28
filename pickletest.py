@@ -8,7 +8,7 @@ system_os = sys.platform
 info = sys.version_info
 python_version = f"{info[0]}.{info[1]}"
 data_folder = "./PickleDataFolder"
-file_path = f"{system_os},{python_version}.txt"
+file_path = f"{system_os},{python_version}"
 current_protocol = 0
 
 def hash_object(obj):
