@@ -5,130 +5,132 @@ on:
     branches: [main]
 
 jobs:
-  ubuntu_3_8:
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: ubuntu-latest
-      python-version: '3.8'
+  ### Only used when there is no files. Could be done progmaticly but had no time ###
 
-  windows_3_8:
-    needs: ubuntu_3_8
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: windows-latest
-      python-version: '3.8'
+  # ubuntu_3_8:
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: ubuntu-latest
+  #     python-version: '3.8'
 
-  macos_3_8:
-    needs: windows_3_8
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: macos-latest
-      python-version: '3.8'
-    
-  ubuntu_3_9:
-    needs: macos_3_8
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: ubuntu-latest
-      python-version: '3.9'
+  # windows_3_8:
+  #   needs: ubuntu_3_8
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: windows-latest
+  #     python-version: '3.8'
 
-  windows_3_9:
-    needs: ubuntu_3_9
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: windows-latest
-      python-version: '3.9'
+  # macos_3_8:
+  #   needs: windows_3_8
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: macos-latest
+  #     python-version: '3.8'
 
-  macos_3_9:
-    needs: windows_3_9
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: macos-latest
-      python-version: '3.9'
+  # ubuntu_3_9:
+  #   needs: macos_3_8
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: ubuntu-latest
+  #     python-version: '3.9'
 
-  ubuntu_3_10:
-    needs: macos_3_9
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: ubuntu-latest
-      python-version: '3.10'
+  # windows_3_9:
+  #   needs: ubuntu_3_9
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: windows-latest
+  #     python-version: '3.9'
 
-  windows_3_10:
-    needs: ubuntu_3_10
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: windows-latest
-      python-version: '3.10'
+  # macos_3_9:
+  #   needs: windows_3_9
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: macos-latest
+  #     python-version: '3.9'
 
-  macos_3_10:
-    needs: windows_3_10
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: macos-latest
-      python-version: '3.10'
+  # ubuntu_3_10:
+  #   needs: macos_3_9
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: ubuntu-latest
+  #     python-version: '3.10'
 
-  ubuntu_3_11:
-    needs: macos_3_10
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: ubuntu-latest
-      python-version: '3.11'
+  # windows_3_10:
+  #   needs: ubuntu_3_10
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: windows-latest
+  #     python-version: '3.10'
 
-  windows_3_11:
-    needs: ubuntu_3_11
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: windows-latest
-      python-version: '3.11'
+  # macos_3_10:
+  #   needs: windows_3_10
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: macos-latest
+  #     python-version: '3.10'
 
-  macos_3_11:
-    needs: windows_3_11
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: macos-latest
-      python-version: '3.11'
+  # ubuntu_3_11:
+  #   needs: macos_3_10
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: ubuntu-latest
+  #     python-version: '3.11'
 
-  ubuntu_3_12:
-    needs: macos_3_11
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: ubuntu-latest
-      python-version: '3.12'
+  # windows_3_11:
+  #   needs: ubuntu_3_11
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: windows-latest
+  #     python-version: '3.11'
 
-  windows_3_12:
-    needs: ubuntu_3_12
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: windows-latest
-      python-version: '3.12'
+  # macos_3_11:
+  #   needs: windows_3_11
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: macos-latest
+  #     python-version: '3.11'
 
-  macos_3_12:
-    needs: windows_3_12
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: macos-latest
-      python-version: '3.12'
+  # ubuntu_3_12:
+  #   needs: macos_3_11
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: ubuntu-latest
+  #     python-version: '3.12'
 
-  ubuntu_3_13:
-    needs: macos_3_12
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: ubuntu-latest
-      python-version: '3.13'
+  # windows_3_12:
+  #   needs: ubuntu_3_12
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: windows-latest
+  #     python-version: '3.12'
 
-  windows_3_13:
-    needs: ubuntu_3_13
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: windows-latest
-      python-version: '3.13'
+  # macos_3_12:
+  #   needs: windows_3_12
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: macos-latest
+  #     python-version: '3.12'
 
-  macos_3_13:
-    needs: windows_3_13
-    uses: ./.github/workflows/reusable-run-script.yml
-    with:
-      os: macos-latest
-      python-version: '3.13'
+  # ubuntu_3_13:
+  #   needs: macos_3_12
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: ubuntu-latest
+  #     python-version: '3.13'
+
+  # windows_3_13:
+  #   needs: ubuntu_3_13
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: windows-latest
+  #     python-version: '3.13'
+
+  # macos_3_13:
+  #   needs: windows_3_13
+  #   uses: ./.github/workflows/reusable-run-script.yml
+  #   with:
+  #     os: macos-latest
+  #     python-version: '3.13'
 
   check:
     name: Checking for diffrences
