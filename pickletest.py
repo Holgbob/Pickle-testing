@@ -39,7 +39,7 @@ def recursive_lst_helper(lst, max_depth=20, depth=1):
         return lst
     return [recursive_lst_helper(lst, depth=depth+1, max_depth=max_depth)]
 
-# returns a string n long
+# Returns a string n long
 def string_helper(n):
     string = ""
     for _ in range(0, n):
@@ -49,8 +49,7 @@ def string_helper(n):
 def pickle_and_save(obj, test_name):
     '''
     Pickles, hashes and saves the passed objects into
-    a specific folder. Name of the files represents 
-    what test, version and os that was used. 
+    a specific folder and file. 
     '''
     with open(f"{data_folder}/data", 'a') as f:
         data = hash_object(pickle.dumps(obj, protocol=current_protocol))
@@ -62,9 +61,9 @@ if __name__ == '__main__':
 
     for version in range(0, 6):
         current_protocol = version
+        random.seed(10)
 
         ########## Class and function ##########
-        random.seed(10)
 
         # Create files for class object
         test_class = Class_object()
