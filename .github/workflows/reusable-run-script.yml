@@ -32,7 +32,7 @@ jobs:
           python-version: ${{ inputs.python-version }}
 
       - name: Run script
-        run: python pickletest.py
+        run: python create_pickle_data.py
 
       - name: Commit new page
         shell: pwsh

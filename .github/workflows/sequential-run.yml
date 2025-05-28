@@ -133,7 +133,7 @@ jobs:
   #     python-version: '3.13'
 
   check:
-    name: Checking for diffrences
+    name: Testing pickle
     if: always()
     runs-on: ubuntu-latest
     # needs: macos_3_13  # Needed when creating data file ^
@@ -151,6 +151,6 @@ jobs:
         with:
           python-version: 3.11
 
-      - name: Run Pickle1.py
+      - name: Run run_pickle_tests.py
         if: always()
-        run: python Pickle1.py
+        run: python run_pickle_tests.py
